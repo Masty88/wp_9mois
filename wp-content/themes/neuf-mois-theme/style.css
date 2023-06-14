@@ -1,0 +1,19 @@
+/*
+Theme Name: Neuf Mois
+Theme URI:
+Author: Emanuele Mastaglia
+Authoe URI:
+Description:
+Version: 1.0
+Tags: e-commerce, custom-menu
+*/
+.top-bar{
+    background-color: red;
+    height: 70px;
+}
+.brand{
+    background-color: green;
+}
+.second-column{
+    background-color: yellow;
+}
