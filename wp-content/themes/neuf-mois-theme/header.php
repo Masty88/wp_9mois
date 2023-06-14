@@ -30,7 +30,15 @@ get_header(); ?>
                     <div class="brand col-3 col-sm-6">Logo</div>
                     <div class="second-column col-9 col-sm-6">
                         <div class="account">Account</div>
-                        <nav class="main-menu">Menu</nav>
+                        <nav class="main-menu">
+                        <?php
+                        wp_nav_menu(
+                            array(
+                                   'theme_location' => 'neuf_mois_main_menu'
+                            )
+                        );
+                        ?>
+                        </nav>
                     </div>
                 </div>
             </div>

@@ -7,13 +7,34 @@ Description:
 Version: 1.0
 Tags: e-commerce, custom-menu
 */
-.top-bar{
-    background-color: red;
-    height: 70px;
-}
+
 .brand{
     background-color: green;
 }
 .second-column{
     background-color: yellow;
+}
+
+.main-menu ul{
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.main-menu ul li {
+    display: inline;
+    margin: 0 5px 0 0;
+}
+
+.footer-menu ul{
+    margin: 0;
+    padding: 0;
+    font-size: 9px;
+    font-weight: 500;
+}
+
+.footer-menu ul li {
+    display: inline;
+    margin: 0 5px 0 0;
 }
