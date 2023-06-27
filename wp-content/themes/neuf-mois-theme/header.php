@@ -19,28 +19,69 @@ get_header(); ?>
 <body <?php body_class(); ?>>
 <div id="page" class="site">
     <header>
-        <section class="welcome">
-            <div class="container">
-                Bienvenue dans ma boutique en ligne!
-            </div>
-        </section>
-        <section class="top-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="brand col-3 col-sm-6">Logo</div>
-                    <div class="second-column col-9 col-sm-6">
-                        <div class="account">Account</div>
-                        <nav class="main-menu">
+        <div class="container">
+
+        </div>
+        <div class="container mt-3">
+            <nav class="navbar navbar-desktop-margin" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="<?php echo esc_url(home_url('/')); ?>">
                         <?php
-                        wp_nav_menu(
-                            array(
-                                   'theme_location' => 'neuf_mois_main_menu'
-                            )
-                        );
+                        $logo_image_url = get_template_directory_uri() . '/img/logo-cigogne.png';
                         ?>
-                        </nav>
-                    </div>
+                        <img src="<?php echo esc_url($logo_image_url); ?>" alt="logo of cigogne">
+                    </a>
+
+                    <a role="button" class="navbar-burger " aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
                 </div>
-            </div>
-        </section>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-start ">
+                        <ul class="is-hidden-mobile is-flex is-flex-direction-row is-align-items-center">
+                            <?php
+                            wp_nav_menu(
+                                array(
+                                    'theme_location' => 'neuf_mois_main_menu',
+                                    'container' => false,
+                                    'items_wrap' => '%3$s'
+                                )
+                            );
+                            ?>
+                        </ul>
+
+                        <ul class="menu-mobile is-hidden-desktop is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+                            <?php
+                            wp_nav_menu(
+                                array(
+                                    'theme_location' => 'neuf_mois_main_menu',
+                                    'container' => false,
+                                    'items_wrap' => '%3$s'
+                                )
+                            );
+                            ?>
+                        </ul>
+                    </div>
+
+                    <div class="navbar-end is-hidden-mobile">
+                        <div class="navbar-item">
+                            <?php do_action('woocommerce_before_mini_cart'); ?>
+                            <a class="cart-button" href="<?php echo esc_url(wc_get_cart_url()); ?>">
+                                <span class="cart-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <small>
+                                        <?php echo WC()->cart->get_cart_contents_count(); ?>
+                                    </small>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </nav>
+        </div>
     </header>
