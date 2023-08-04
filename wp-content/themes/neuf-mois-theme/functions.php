@@ -102,3 +102,16 @@ function woocommerce_header_add_to_cart_fragment( $fragments ) {
     $fragments['div.l-header-shop'] = ob_get_clean();
     return $fragments;
 }
+
+function wc_refresh_mini_cart_count ($fragments){
+    ob_start();
+    $items_count = WC()->cart->get_cart_contents_count()
+        ?>
+    <span class="cart-count">
+        <?php echo $items_count ? $items_count : '0'; ?>
+    </span>
+    <?php
+        $fragments['.cart-count']= ob_get_clean();
+        return $fragments;
+}
+add_filter('woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');

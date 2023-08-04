@@ -10,16 +10,30 @@ Tags: e-commerce, custom-menu
 
 a{
     text-decoration: none;
-    color: black;
 }
 li{
     list-style: none;
     margin-right: 15px;
 }
 
+*{
+    box-sizing: border-box;
+}
+
+p{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+}
+
+#page{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 @keyframes slideIn {
     0% {
-        transform: translateX(100%);
+        transform: translateX(-100%);
     }
     100% {
         transform: translateX(0);
@@ -31,13 +45,99 @@ li{
         transform: translateX(0);
     }
     100% {
-        transform: translateX(100%);
+        transform: translateX(-100%);
     }
+}
+
+.border-black {
+    border: 4px solid #AFD5E5;
+    min-height: 90vh;
+    border-radius: 20px;
+}
+
+.border-black img {
+    border-radius: 20px;
+}
+
+/*--btn animation--*/
+.wp-block-button__link {
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.wp-block-button__link:hover {
+    color: #00d1b2; /* is-primary */
+}
+
+.wp-block-button__link:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -50%;
+    bottom: 0;
+    left: -50%;
+    background: linear-gradient(60deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: translateX(100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(-100%);
+    }
+}
+/*---BK COLOR OF DESKTOP---*/
+.wp-block-columns {
+    display: flex; /* Imposta il contenitore delle colonne come un flex container */
+    min-height: 100vh; /* Imposta un'altezza minima per il contenitore delle colonne */
+}
+
+.wp-block-column {
+    flex-grow: 1; /* Permette alle colonne di crescere per occupare lo spazio disponibile */
+    min-height: 100%; /* Imposta un'altezza minima per le colonne */
+}
+
+.wp-block-columns .bg-color {
+    background-color: #DF8B89;
+}
+
+.wp-block-columns h2{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+
+.wp-block-columns h1{
+    width: 100%;
+    color: white;
 }
 
 /*----MOBILE----*/
 
 @media screen and (min-width: 320px){
+    .blog{
+        background-color: #AFD5E5;
+    }
+    .blog img {
+        width: 100%;    /* Adatta l'immagine alla larghezza del contenitore */
+        height: auto;   /* Mantieni le proporzioni dell'immagine */
+        object-fit: cover; /* Questo farà in modo che le tue immagini coprano lo spazio senza distorcere l'immagine */
+    }
+
+    .margin-home{
+        margin-top: 10px !important;
+    }
+    header a{
+        color:black;
+    }
+
+    .navbar-menu{
+        display: block;
+        box-shadow: none;
+    }
 
     .menu-mobile {
         position: fixed;
@@ -48,7 +148,14 @@ li{
         background-color: rgba(252, 252, 252, 1); /* or any color you want */
         color: #0c0c0c; /* font color */
         z-index: 100;
+        transform: translateX(-100%); /* commence à droite, hors de l'écran */
+        transition: transform 0.4s ease-in-out;
     }
+
+    .menu-mobile.is-animated {
+        transform: translateX(0); /* revient à sa position initiale */
+    }
+
 
     .menu-mobile {
         animation-duration: 0.2s; /* or any other duration */
@@ -70,6 +177,7 @@ li{
 
     .navbar-burger{
         z-index: 101;
+        margin-left: 0;
     }
 
     .navbar-item img {
@@ -80,27 +188,64 @@ li{
         align-items: center;
     }
 
+    footer {
+        margin-top: auto;
+    }
+
+    footer a{
+        color: white;
+    }
+
+    input[type="submit"] {
+        /* Reimposta lo stile predefinito del browser */
+        border: none;
+
+        /* Applica lo stile di Bulma */
+        padding: 0.5em 1em;
+        color: #fff;
+        background: #00d1b2 none;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 4px;
+        font-size: 1rem;
+        line-height: 1.5;
+        transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #00c4a7;
+    }
+
+    .checkout-btn{
+        background-color: #00d1b2 !important;
+    }
 
 }
 
 /*----TABLET----*/
 @media (min-width: 481px) and (max-width: 767px){
-
+    .blog img {
+        width: 100%;    /* Adatta l'immagine alla larghezza del contenitore */
+        height: auto;   /* Mantieni le proporzioni dell'immagine */
+        object-fit: cover; /* Questo farà in modo che le tue immagini coprano lo spazio senza distorcere l'immagine */
+    }
 }
 
 /*----DESKTOP----*/
 @media screen and (min-width: 768px) {
-
+    .border-black {
+        min-height: 120vh;
+        max-height: 1200px;
+    }
+    .navbar-menu{
+        display: flex;
+        box-shadow: none;
+    }
 }
 
 
 
-.footer-menu ul{
-    margin: 0;
-    padding: 0;
-    font-size: 9px;
-    font-weight: 500;
-}
+
 
 .footer-menu ul li {
     display: inline;
