@@ -42,7 +42,7 @@ get_header()
                             foreach ( $posts as $post ) : setup_postdata( $post );
                                 ?>
                             <div class="column">
-                                <article class=" blog border-black mt-3 pb-3">
+                                <article class=" blog border-black mt-3">
                                     <div><?php the_content() ?></div>
                                 </article>
                             </div>

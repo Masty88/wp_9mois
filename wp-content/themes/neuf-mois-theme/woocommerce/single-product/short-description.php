@@ -1,10 +1,8 @@
 <?php
 /**
- * Proceed to checkout button
+ * Single product short description
  *
- * Contains the markup for the proceed to checkout button on the cart.
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/cart/proceed-to-checkout-button.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product/short-description.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -14,14 +12,22 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 7.0.1
+ * @version 3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-?>
 
-<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-btn is-flex button is-primary<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>">
-	<?php esc_html_e( 'Aller à la caisse', 'woocommerce' ); ?>
-</a>
+global $post;
+
+$short_description = apply_filters( 'woocommerce_short_description', $post->post_excerpt );
+
+if ( ! $short_description ) {
+	return;
+}
+
+?>
+<div class="woocommerce-product-details__short-description mt-3 mb-3">
+	<?php echo $short_description; // WPCS: XSS ok. ?>
+</div>

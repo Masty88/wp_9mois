@@ -115,3 +115,37 @@ function wc_refresh_mini_cart_count ($fragments){
         return $fragments;
 }
 add_filter('woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');
+
+
+function woo_remove_product_tabs( $tabs ) {
+    unset( $tabs['description'] );      // Rimuove la scheda Descrizione
+    unset( $tabs['reviews'] );          // Rimuove la scheda Recensioni
+    unset( $tabs['additional_information'] ); // Rimuove la scheda Informazioni aggiuntive
+
+    return $tabs;
+}
+
+add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
+
+// Disabilita le pagine di tassonomia per i tag di prodotto
+add_action( 'init', 'disable_product_tag_taxonomy', 99 );
+function disable_product_tag_taxonomy() {
+    unregister_taxonomy_for_object_type( 'product_tag', 'product' );
+}
+
+// Disabilita le pagine di tassonomia per le categorie di prodotto
+add_action( 'init', 'disable_product_category_taxonomy', 99 );
+function disable_product_category_taxonomy() {
+    unregister_taxonomy_for_object_type( 'product_cat', 'product' );
+}
+
+// Disabilita le pagine di tassonomia per gli attributi di prodotto
+add_action( 'init', 'disable_product_attribute_taxonomies', 99 );
+function disable_product_attribute_taxonomies() {
+    $attribute_taxonomies = wc_get_attribute_taxonomies();
+    if ( $attribute_taxonomies ) {
+        foreach ( $attribute_taxonomies as $tax ) {
+            unregister_taxonomy_for_object_type( $tax->attribute_name, 'product' );
+        }
+    }
+}

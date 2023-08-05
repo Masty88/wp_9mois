@@ -1,10 +1,10 @@
 <?php
 /**
- * Proceed to checkout button
+ * Single Product Share
  *
- * Contains the markup for the proceed to checkout button on the cart.
+ * Sharing plugins can hook into here or you can add your own code directly.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/cart/proceed-to-checkout-button.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product/share.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -14,14 +14,13 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 7.0.1
+ * @version 3.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-?>
 
-<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-btn is-flex button is-primary<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>">
-	<?php esc_html_e( 'Aller à la caisse', 'woocommerce' ); ?>
-</a>
+do_action( 'woocommerce_share' ); // Sharing plugins can hook into here.
+
+/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

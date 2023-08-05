@@ -120,6 +120,7 @@ p{
 @media screen and (min-width: 320px){
     .blog{
         background-color: #AFD5E5;
+        padding: 10px;
     }
     .blog img {
         width: 100%;    /* Adatta l'immagine alla larghezza del contenitore */
@@ -216,23 +217,61 @@ p{
         background-color: #00c4a7;
     }
 
-    .checkout-btn{
+    .checkout-btn, .single_add_to_cart_button{
         background-color: #00d1b2 !important;
+        color: #ffff !important;
+    }
+
+    .variations_form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .woocommerce-variation-add-to-cart .quantity{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /*.woocommerce-variation-add-to-cart .quantity{*/
+    /*    display: none;*/
+    /*}*/
+
+
+    .single_add_to_cart_button{
+        margin-bottom: 20px;
+        width: 100%;
     }
 
 }
 
 /*----TABLET----*/
-@media (min-width: 481px) and (max-width: 767px){
-    .blog img {
-        width: 100%;    /* Adatta l'immagine alla larghezza del contenitore */
-        height: auto;   /* Mantieni le proporzioni dell'immagine */
-        object-fit: cover; /* Questo farà in modo che le tue immagini coprano lo spazio senza distorcere l'immagine */
+@media (min-width: 481px) and (max-width: 1024px){
+    .blog{
+        width: 90%;
+        margin: auto;
+        padding: 3rem;
+    }
+    .blog p , .blog h2{
+        font-size: 2rem;
+    }
+    .blog .wp-block-button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .blog .wp-block-button a{
+        width: 90%;
+        font-size: 2rem;
+    }
+    figure{
+        width: 100%;
     }
 }
 
 /*----DESKTOP----*/
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1025px) {
     .border-black {
         min-height: 120vh;
         max-height: 1200px;

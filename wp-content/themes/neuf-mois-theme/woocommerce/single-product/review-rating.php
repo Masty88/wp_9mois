@@ -1,10 +1,8 @@
 <?php
 /**
- * Proceed to checkout button
+ * The template to display the reviewers star rating in reviews
  *
- * Contains the markup for the proceed to checkout button on the cart.
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/cart/proceed-to-checkout-button.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/review-rating.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -14,14 +12,16 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 7.0.1
+ * @version 3.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-?>
 
-<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-btn is-flex button is-primary<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>">
-	<?php esc_html_e( 'Aller à la caisse', 'woocommerce' ); ?>
-</a>
+global $comment;
+$rating = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
+
+if ( $rating && wc_review_ratings_enabled() ) {
+	echo wc_get_rating_html( $rating ); // WPCS: XSS ok.
+}
