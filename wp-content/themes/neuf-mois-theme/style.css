@@ -87,35 +87,43 @@ p{
         transform: translateX(-100%);
     }
 }
+
+.df-ui-wrapper, .df-ui-controls{
+    display: none !important;
+}
+
+.tabs_def {
+    -webkit-overflow-scrolling: touch;
+    align-items: stretch;
+     display: block !important;
+    font-size: 1rem;
+    justify-content: space-between;
+    overflow: hidden;
+    overflow-x: auto;
+     white-space: normal !important;
+}
+
 /*---BK COLOR OF DESKTOP---*/
-.wp-block-columns {
-    display: flex; /* Imposta il contenitore delle colonne come un flex container */
-    min-height: 100vh; /* Imposta un'altezza minima per il contenitore delle colonne */
-}
+/*.wp-block-columns {*/
+/*    display: flex; !* Imposta il contenitore delle colonne come un flex container *!*/
+/*    min-height: 100vh; !* Imposta un'altezza minima per il contenitore delle colonne *!*/
+/*}*/
 
-.wp-block-column {
-    flex-grow: 1; /* Permette alle colonne di crescere per occupare lo spazio disponibile */
-    min-height: 100%; /* Imposta un'altezza minima per le colonne */
-}
+/*.wp-block-column {*/
+/*    flex-grow: 1; !* Permette alle colonne di crescere per occupare lo spazio disponibile *!*/
+/*    min-height: 100%; !* Imposta un'altezza minima per le colonne *!*/
+/*}*/
 
-.wp-block-columns .bg-color {
-    background-color: #DF8B89;
-}
+/*.wp-block-columns .bg-color {*/
+/*    background-color: #DF8B89;*/
+/*}*/
 
-.wp-block-columns h2{
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    color: white;
-}
-
-
-.wp-block-columns h1{
-    width: 100%;
-    color: white;
-}
 
 /*----MOBILE----*/
+
+is-primary{
+    background-color: #81c7b8 !important;
+}
 
 @media screen and (min-width: 320px){
     .blog{
@@ -214,11 +222,11 @@ p{
     }
 
     input[type="submit"]:hover {
-        background-color: #00c4a7;
+        background-color: #81c7b8;
     }
 
     .checkout-btn, .single_add_to_cart_button{
-        background-color: #00d1b2 !important;
+        background-color: #81c7b8 !important;
         color: #ffff !important;
     }
 
@@ -244,17 +252,28 @@ p{
         width: 100%;
     }
 
+    .wp-block-columns h2{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .wp-block-columns h1{
+        width: 100%;
+    }
+
 }
 
 /*----TABLET----*/
-@media (min-width: 481px) and (max-width: 1024px){
+@media (min-width: 481px) and (max-width: 768px){
     .blog{
         width: 90%;
         margin: auto;
         padding: 3rem;
     }
     .blog p , .blog h2{
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     .blog .wp-block-button {
         width: 100%;
@@ -263,22 +282,69 @@ p{
     }
     .blog .wp-block-button a{
         width: 90%;
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
+
+    article h2{
+        font-weight: 800;
+    }
+
     figure{
         width: 100%;
+    }
+    footer nav a{
+        font-size: 1.3rem;
+    }
+
+    footer .columns p{
+        font-size: 1.1rem;
+    }
+
+    footer .columns img{
+        width: 60px;
+    }
+
+    .navbar-item img{
+        max-height: 4rem;
+    }
+
+    .wp-block-cover{
+        min-height: 90vh !important;
     }
 }
 
 /*----DESKTOP----*/
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 769px) {
     .border-black {
-        min-height: 120vh;
+        /*min-height: 120vh;*/
         max-height: 1200px;
     }
     .navbar-menu{
         display: flex;
         box-shadow: none;
+    }
+    .wp-block-columns h2{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .home-column{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+     .home-column .blog{
+         flex-grow: 1;
+     }
+
+    .home-column .blog .wp-block-buttons{
+        align-self: flex-end;
+        width: 100%; /* assicurati che occupi l'intera larghezza */
+    }
+
+    .menu-desk li{
+        font-weight:4600;
     }
 }
 

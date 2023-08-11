@@ -41,7 +41,7 @@ get_header()
                         if ( !empty($posts) ) :
                             foreach ( $posts as $post ) : setup_postdata( $post );
                                 ?>
-                            <div class="column">
+                            <div class="column home-column">
                                 <article class=" blog border-black mt-3">
                                     <div><?php the_content() ?></div>
                                 </article>

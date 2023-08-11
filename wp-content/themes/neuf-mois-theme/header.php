@@ -63,7 +63,7 @@ get_header(); ?>
 
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start ">
-                        <ul class="is-hidden-mobile is-hidden-touch is-flex is-flex-direction-row is-align-items-center">
+                        <ul class="menu-desk is-hidden-mobile is-hidden-touch is-flex is-flex-direction-row is-align-items-center">
                             <?php
                             wp_nav_menu(
                                 array(

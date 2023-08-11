@@ -116,11 +116,11 @@ function wc_refresh_mini_cart_count ($fragments){
 }
 add_filter('woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');
 
-
+//
 function woo_remove_product_tabs( $tabs ) {
-    unset( $tabs['description'] );      // Rimuove la scheda Descrizione
+//    unset( $tabs['description'] );      // Rimuove la scheda Descrizione
     unset( $tabs['reviews'] );          // Rimuove la scheda Recensioni
-    unset( $tabs['additional_information'] ); // Rimuove la scheda Informazioni aggiuntive
+//    unset( $tabs['additional_information'] ); // Rimuove la scheda Informazioni aggiuntive
 
     return $tabs;
 }
@@ -149,3 +149,12 @@ function disable_product_attribute_taxonomies() {
         }
     }
 }
+
+function redirect_single_posts_to_home() {
+    if (is_single() && get_post_type() === 'post') {
+        // Controlla se la pagina è un singolo post e il post type è "post"
+        wp_redirect(home_url());
+        exit;
+    }
+}
+add_action('template_redirect', 'redirect_single_posts_to_home');

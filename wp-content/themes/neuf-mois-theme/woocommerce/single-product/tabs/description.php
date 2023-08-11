@@ -23,8 +23,11 @@ $heading = apply_filters( 'woocommerce_product_description_heading', __( 'Descri
 
 ?>
 
+<div class="section">
 <?php if ( $heading ) : ?>
 	<h2><?php echo esc_html( $heading ); ?></h2>
 <?php endif; ?>
 
-<?php the_content(); ?>
+    <?php the_content(); ?>
+</div>
+
