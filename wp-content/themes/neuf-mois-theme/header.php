@@ -94,7 +94,12 @@ get_header(); ?>
                             <a class="cart-button" href="<?php echo esc_url(wc_get_cart_url()); ?>">
                                 <span class="cart-icon">
                                     <i class="fas fa-shopping-cart"></i>
-                                    <span class="cart-count"><?php echo wp_kses_post(WC()->cart->get_cart_contents_count()); ?></span>
+                                    <span class="cart-count">
+    <?php 
+    $items_count = WC()->cart->get_cart_contents_count();
+    echo $items_count ? $items_count : '0'; 
+    ?>
+</span>
                                 </span>
                             </a>
                         </div>

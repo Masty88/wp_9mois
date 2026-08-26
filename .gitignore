@@ -56,3 +56,12 @@ node_modules/
 
 dev/site/
 dev/db-init/
+
+.live-pristine/
+
+# Sorgenti di design: non sono asset web, e nel tema sono anche
+# scaricabili pubblicamente. Vanno tenuti fuori dal repo e dal server.
+*.psd
+*.ai
+*.sketch
+*.fig
