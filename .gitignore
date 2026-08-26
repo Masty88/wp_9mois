@@ -67,3 +67,5 @@ dev/db-init/
 *.fig
 
 dev/.tmp/
+
+*.stackdump
