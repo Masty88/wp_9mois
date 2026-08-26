@@ -23,7 +23,8 @@ wp-config.php
 *.sql
 *.sql.gz
 .env
-.vscode/sftp.json          # contiene host e password SFTP
+# contiene host e credenziali SFTP
+.vscode/sftp.json
 
 # ─── Contenuti e cache: pesanti e rigenerabili ───
 /wp-content/uploads/
