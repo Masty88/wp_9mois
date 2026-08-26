@@ -9,7 +9,14 @@
 services:
   db:
     image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
+    # Il dump di produzione contiene date zero ('0000-00-00 00:00:00'): il server
+    # di GoDaddy le accetta, MySQL 8 con la sql_mode predefinita no, e l'import
+    # si ferma con "Invalid default value". Qui si allenta la sql_mode quanto
+    # basta a importare il dump cosi' com'e'.
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --sql-mode=NO_ENGINE_SUBSTITUTION
+      --explicit-defaults-for-timestamp=OFF
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
@@ -20,9 +27,14 @@ services:
       # il dump viene importato UNA SOLA VOLTA, alla prima creazione del volume
       - ./db-init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
-      interval: 5s
-      retries: 20
+      # Non basta un ping: durante l'inizializzazione MySQL avvia un server
+      # temporaneo che risponde gia', e WordPress partirebbe mentre l'import
+      # del dump e' ancora in corso. Si verifica invece che una tabella vera
+      # sia arrivata.
+      test: ["CMD-SHELL", "mysql -uroot -proot -e 'SELECT 1 FROM wordpress.wcoptions LIMIT 1' >/dev/null 2>&1"]
+      interval: 10s
+      retries: 60
+      start_period: 120s
 
   wordpress:
     image: php:8.2-apache
