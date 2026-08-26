@@ -139,7 +139,7 @@ Non c'e' PHP su questa macchina: nessuno dei 7 merge e' stato passato da un
 `php -l`. La verifica vera e' l'ambiente Docker.
 
     dev/setup.sh "<percorso del backup .zip>"     # una volta sola
-    cd dev && docker compose up -d                # poi http://localhost:8080
+    cd dev && docker compose up -d                # poi http://localhost:8090
 
 Da controllare, in quest'ordine: una pagina prodotto (semplice e variabile),
 il carrello, il checkout fino al riepilogo. Sono le pagine toccate dai 7

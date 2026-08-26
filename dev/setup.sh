@@ -53,8 +53,8 @@ define( 'DB_COLLATE',  '' );
 $table_prefix = 'wc';
 
 /* L'URL locale, cosi' non serve riscrivere il database */
-define( 'WP_HOME',    'http://localhost:8080' );
-define( 'WP_SITEURL', 'http://localhost:8080' );
+define( 'WP_HOME',    'http://localhost:8090' );
+define( 'WP_SITEURL', 'http://localhost:8090' );
 
 /* Ambiente di sviluppo: errori a schermo, niente aggiornamenti automatici */
 define( 'WP_DEBUG',           true );
@@ -88,7 +88,7 @@ Pronto. Avvia con:
 
     cd dev && docker compose up -d
 
-Poi apri  http://localhost:8080  (il primo avvio importa il database: ~1 minuto).
+Poi apri  http://localhost:8090  (il primo avvio importa il database: ~1 minuto).
 
 L'utente amministratore e' lo stesso del sito di produzione: usa quelle credenziali
 per entrare in /wp-admin.

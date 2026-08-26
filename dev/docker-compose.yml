@@ -4,7 +4,7 @@
 #   WordPress 6.8.8 · PHP 8.2 · WooCommerce 10.7.0 · prefisso tabelle "wc"
 #
 # I file del sito arrivano dal backup GoDaddy; il tema e' montato dal repo,
-# cosi' quello che modifichi in VS Code si vede subito su http://localhost:8080
+# cosi' quello che modifichi in VS Code si vede subito su http://localhost:8090
 
 services:
   db:
@@ -30,7 +30,9 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "8080:80"
+      # 8080 e' occupata da ApacheOSGeo4WWebServer (il web server di QGIS/OSGeo4W,
+      # servizio Windows automatico). Usiamo la 8090.
+      - "8090:80"
     volumes:
       - ./site:/var/www/html
       # il tema vero e' quello del repo: le modifiche si vedono subito
