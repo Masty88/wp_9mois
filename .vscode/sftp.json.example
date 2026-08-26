@@ -1,0 +1,35 @@
+{
+  "name": "9mois — GoDaddy PROD (SOLO LETTURA: uploadOnSave disattivato)",
+  "host": "173665.eu11.ssh.myftpupload.com",
+  "protocol": "sftp",
+  "port": 22,
+  "username": "INSERISCI_USERNAME",
+  "remotePath": "/html",
+  "context": ".",
+  "uploadOnSave": false,
+  "useTempFile": false,
+  "openSsh": false,
+  "ignore": [
+    ".git",
+    ".vscode",
+    ".idea",
+    "node_modules",
+    "tools",
+    "WORKFLOW.md",
+    ".gitignore",
+    ".woo-cache",
+    "wp-config.php",
+    "wp-content/uploads"
+  ],
+  "watcher": {
+    "files": false,
+    "autoUpload": false,
+    "autoDelete": false
+  },
+  "syncOption": {
+    "delete": false,
+    "skipCreate": false,
+    "ignoreExisting": false
+  },
+  "privateKeyPath": "./.ssh/godaddy_9mois"
+}

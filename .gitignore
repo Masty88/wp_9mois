@@ -1,0 +1,57 @@
+# ─── Core WordPress: gestito da GoDaddy Managed WP, non va versionato ───
+/wp-admin/
+/wp-includes/
+/wp-activate.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-config-sample.php
+/wp-cron.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
+/index.php
+/license.txt
+/readme.html
+
+# ─── Segreti: MAI committare ───
+wp-config.php
+*.sql
+*.sql.gz
+.env
+.vscode/sftp.json          # contiene host e password SFTP
+
+# ─── Contenuti e cache: pesanti e rigenerabili ───
+/wp-content/uploads/
+/wp-content/cache/
+/wp-content/upgrade/
+/wp-content/backup*/
+/wp-content/ai1wm-backups/
+/wp-content/debug.log
+/wp-content/advanced-cache.php
+/wp-content/object-cache.php
+
+# ─── Plugin di terze parti: aggiornati dall'admin WP ───
+/wp-content/plugins/*
+!/wp-content/plugins/index.php
+
+# ─── Temi di default ───
+/wp-content/themes/twenty*
+
+# ─── Locale ───
+.idea/
+.DS_Store
+Thumbs.db
+node_modules/
+.woo-cache/
+
+.live-pull/
+
+.ssh/
+
+dev/site/
+dev/db-init/

@@ -1,0 +1,21 @@
+# I file vanno su un server Linux: normalizza tutto a LF in repo.
+# Evita anche che i merge a tre vie con i template WooCommerce (che sono LF)
+# vedano ogni riga come diversa.
+* text=auto eol=lf
+
+*.php  text eol=lf
+*.js   text eol=lf
+*.css  text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.sh   text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.svg  text eol=lf
+*.woff  binary
+*.woff2 binary
+*.ttf   binary

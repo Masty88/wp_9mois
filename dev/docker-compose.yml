@@ -1,0 +1,44 @@
+# Ambiente di sviluppo locale — replica del sito di produzione.
+#
+# Le versioni corrispondono a quelle del live (verificate nel backup):
+#   WordPress 6.8.8 · PHP 8.2 · WooCommerce 10.7.0 · prefisso tabelle "wc"
+#
+# I file del sito arrivano dal backup GoDaddy; il tema e' montato dal repo,
+# cosi' quello che modifichi in VS Code si vede subito su http://localhost:8080
+
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+      # il dump viene importato UNA SOLA VOLTA, alla prima creazione del volume
+      - ./db-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      retries: 20
+
+  wordpress:
+    image: php:8.2-apache
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./site:/var/www/html
+      # il tema vero e' quello del repo: le modifiche si vedono subito
+      - ../wp-content/themes/neuf-mois-theme:/var/www/html/wp-content/themes/neuf-mois-theme
+    command: >
+      bash -c "docker-php-ext-install mysqli pdo_mysql > /dev/null 2>&1;
+               a2enmod rewrite > /dev/null 2>&1;
+               apache2-foreground"
+
+volumes:
+  db_data:
