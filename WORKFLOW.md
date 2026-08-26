@@ -24,10 +24,10 @@ Analisi sui file **live** (backup GoDaddy del 26/08/2026), verificata:
 |---|---|---|
 | **Mai caricati** | 14 | Stanno in `woocommerce/cart/checkout/`, ma WooCommerce carica i template di checkout da `checkout/`. Verificato: la cartella `woocommerce/checkout/` non esiste, e nessun `locate_template`/`wc_get_template` nel tema li include. Sono **file morti**: cancellare. |
 | **Identici all'originale** | 25 | Verificato riga per riga senza rimuovere i commenti: **zero** righe di codice diverse. Differiscono solo nei docblock (`@package`, `@see`). Cancellandoli WooCommerce usa i propri, sempre aggiornati. |
-| **Modificati davvero** | 7 | Traduzioni francesi hardcoded + classi Bulma + wrapper di layout. Tutti e 7 mergiati alla 11.0.1 **senza un solo conflitto**. |
+| **Modificati davvero** | 7 | Traduzioni francesi hardcoded + classi Bulma + wrapper di layout. Tutti e 7 mergiati alla **10.7.0** — la versione realmente installata, non l'ultima — **senza un solo conflitto**. |
 
 Cioè **39 override su 46 si cancellano** senza toccare nulla di visibile, e i 7 che
-restano sono gia' stati portati alla 11.0.1 con un merge pulito. La lista rossa
+restano sono gia' stati portati alla 10.7.0 con un merge pulito. La lista rossa
 sparisce del tutto.
 
 ### Le traduzioni non dovrebbero stare li'
@@ -131,3 +131,22 @@ plugin di terze parti, `.vscode/sftp.json`.
 > Nota: il `wp-config.php` committato nel 2024 contiene credenziali **locali**
 > (`root@localhost`, password vuota), non di produzione — nessun segreto reale è
 > esposto. Contiene però i salt in chiaro: da qui in poi il file è ignorato.
+
+
+## Verificare prima di caricare
+
+Non c'e' PHP su questa macchina: nessuno dei 7 merge e' stato passato da un
+`php -l`. La verifica vera e' l'ambiente Docker.
+
+    dev/setup.sh "<percorso del backup .zip>"     # una volta sola
+    cd dev && docker compose up -d                # poi http://localhost:8080
+
+Da controllare, in quest'ordine: una pagina prodotto (semplice e variabile),
+il carrello, il checkout fino al riepilogo. Sono le pagine toccate dai 7
+override rimasti.
+
+## Da sistemare sul server, indipendentemente da tutto il resto
+
+In `wp-content/themes/neuf-mois-theme/img/` ci sono due file Photoshop da 47 e
+38 MB, senza alcun riferimento nel tema e **scaricabili pubblicamente**
+(verificato: HTTP 206). Vanno cancellati dal server.
