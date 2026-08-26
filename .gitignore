@@ -65,3 +65,5 @@ dev/db-init/
 *.ai
 *.sketch
 *.fig
+
+dev/.tmp/

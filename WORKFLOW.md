@@ -133,13 +133,43 @@ plugin di terze parti, `.vscode/sftp.json`.
 > esposto. Contiene però i salt in chiaro: da qui in poi il file è ignorato.
 
 
-## Verificare prima di caricare
+## Verifica eseguita (26/08/2026)
 
-Non c'e' PHP su questa macchina: nessuno dei 7 merge e' stato passato da un
-`php -l`. La verifica vera e' l'ambiente Docker.
+L'ambiente Docker e' stato avviato e il risultato controllato pagina per pagina,
+con il confronto contro il sito di produzione dove aveva senso.
+
+**Pagina prodotto** — resa in locale confrontata con la stessa pagina del sito
+live su 8 marker (classi Bulma, wrapper dei template mergiati, tabs, correlati,
+badge saldo): **identici su tutti e 8**. Compreso `is-primary`, assente in
+entrambi: e' lo stato preesistente del sito, non una regressione.
+
+**Carrello**, con un prodotto dentro (variazione EPUB del Guide pratique):
+`woocommerce-cart-form` rende, `cart_totals` rende, la classe `checkout-btn`
+c'e', e le due stringhe francesi dei template mergiati sono al loro posto —
+«Montant du panier» e «Aller a la caisse».
+
+**Checkout** — form completo: campi di fatturazione, coupon, riepilogo ordine,
+pulsante d'ordine. E' la conferma pratica che i 14 file cancellati da
+`cart/checkout/` non servivano a nulla: senza di loro il checkout rende uguale.
+
+**Zero errori PHP fatali**, nell'output delle pagine e nei log Apache dall'avvio.
+
+### Due cose da sapere sull'ambiente locale
+
+- L'interfaccia e' in **inglese**, il live e' in francese: i file di lingua non
+  vengono caricati in locale. Non influenza la verifica dei template (le
+  stringhe francesi sono scritte dentro i template, non tradotte), ma non
+  stupirsi di leggere "Your cart is currently empty".
+- I prodotti sono **variabili**: per riempire il carrello serve scegliere il
+  formato (EPUB / PDF / Papier), l'id del prodotto da solo non basta.
+
+### Come rilanciarlo
 
     dev/setup.sh "<percorso del backup .zip>"     # una volta sola
     cd dev && docker compose up -d                # poi http://localhost:8090
+
+Il primo avvio importa 100 tabelle e richiede qualche minuto: il healthcheck
+aspetta che l'import sia finito prima di far partire WordPress.
 
 Da controllare, in quest'ordine: una pagina prodotto (semplice e variabile),
 il carrello, il checkout fino al riepilogo. Sono le pagine toccate dai 7
