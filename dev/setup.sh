@@ -93,5 +93,15 @@ Poi apri  http://localhost:8090  (il primo avvio importa il database: ~1 minuto)
 L'utente amministratore e' lo stesso del sito di produzione: usa quelle credenziali
 per entrare in /wp-admin.
 
+Poi, UNA VOLTA SOLA a import concluso, riscrivi gli URL: il dump contiene 1000+
+riferimenti al dominio di produzione, e senza questo passaggio i media vengono
+caricati dal sito vero (le immagini funzionano, ma tutto cio' che usa fetch() --
+il flipbook del PDF, per dire -- viene bloccato dal browser per cross-origin).
+
+    cd dev
+    docker compose run --rm wpcli search-replace       'https://9moisauxpetitssoins.com' 'http://localhost:8090'       --all-tables --precise --skip-columns=guid
+    # e la forma JSON-escaped, che la precedente non intercetta:
+    docker compose run --rm wpcli search-replace       'https:\/\/9moisauxpetitssoins.com' 'http:\/\/localhost:8090'       --all-tables --precise --skip-columns=guid
+
 Il tema e' montato dal repo: modifichi in VS Code, ricarichi il browser, vedi.
 MSG

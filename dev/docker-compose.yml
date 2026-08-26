@@ -17,6 +17,9 @@ services:
       --default-authentication-plugin=mysql_native_password
       --sql-mode=NO_ENGINE_SUBSTITUTION
       --explicit-defaults-for-timestamp=OFF
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --skip-character-set-client-handshake
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
@@ -31,7 +34,10 @@ services:
       # temporaneo che risponde gia', e WordPress partirebbe mentre l'import
       # del dump e' ancora in corso. Si verifica invece che una tabella vera
       # sia arrivata.
-      test: ["CMD-SHELL", "mysql -uroot -proot -e 'SELECT 1 FROM wordpress.wcoptions LIMIT 1' >/dev/null 2>&1"]
+      # Sentinella: l'ULTIMA tabella del dump. Con una qualsiasi (wcoptions,
+      # per dire) il controllo passa a meta' import, perche' le tabelle
+      # arrivano in ordine e WordPress ripartirebbe troppo presto.
+      test: ["CMD-SHELL", "mysql -uroot -proot -e 'SELECT 1 FROM wordpress.wp_3zrr5ysaar_wpda_table_settings LIMIT 1' >/dev/null 2>&1"]
       interval: 10s
       retries: 60
       start_period: 120s
@@ -53,6 +59,23 @@ services:
       bash -c "docker-php-ext-install mysqli pdo_mysql > /dev/null 2>&1;
                a2enmod rewrite > /dev/null 2>&1;
                apache2-foreground"
+
+  # WP-CLI su richiesta: non parte con "up", si lancia esplicitamente.
+  #   docker compose run --rm wpcli search-replace vecchio nuovo --all-tables
+  wpcli:
+    image: wordpress:cli-php8.2
+    profiles: ["tools"]
+    depends_on:
+      db:
+        condition: service_healthy
+    user: "33:33"
+    volumes:
+      - ./site:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
 
 volumes:
   db_data:

@@ -160,6 +160,9 @@ pulsante d'ordine. E' la conferma pratica che i 14 file cancellati da
   vengono caricati in locale. Non influenza la verifica dei template (le
   stringhe francesi sono scritte dentro i template, non tradotte), ma non
   stupirsi di leggere "Your cart is currently empty".
+- Gli **URL vanno riscritti** dopo l'import (vedi `dev/setup.sh`): senza, i media
+  restano puntati al sito di produzione e tutto cio' che usa `fetch()` viene
+  bloccato per cross-origin.
 - I prodotti sono **variabili**: per riempire il carrello serve scegliere il
   formato (EPUB / PDF / Papier), l'id del prodotto da solo non basta.
 
