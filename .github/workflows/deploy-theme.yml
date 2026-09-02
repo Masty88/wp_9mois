@@ -1,0 +1,58 @@
+# Deploy del tema sul sito di produzione GoDaddy.
+#
+# ─── Perche' non e' il file fornito da GoDaddy tale e quale ────────────────
+#
+# Quello di default lascia source_path e deployment_dest vuoti, cioe' sincronizza
+# l'INTERO repository sulla RADICE del sito, con cleanup_deleted_files: yes —
+# "cancella dal server i file rimossi dal repository".
+#
+# L'action ha una lista di esclusioni predefinita che protegge il core
+# (wp-admin/, wp-includes/, wp-content/uploads/, mu-plugins/, i php di radice),
+# ma NON protegge wp-content/plugins/. Questo repository contiene solo
+# wp-content/plugins/index.php: un deploy sulla radice cancellerebbe dal server
+# tutti e 25 i plugin, WooCommerce compreso.
+#
+# Inoltre caricherebbe nella document root pubblica le nostre cartelle di
+# lavoro — tools/, dev/, design-sources/, WORKFLOW.md — che descrivono
+# l'infrastruttura del sito e non hanno alcun motivo di essere pubbliche.
+#
+# Percio' qui i due percorsi sono FISSATI alla sola cartella del tema. rsync
+# gira da $CHECKOUT_DIR/ a /$WP_DEST_DIR/ e il --delete resta confinato li'
+# dentro: fuori dal tema non viene toccato nulla.
+#
+# Il parametro deployment_dest a testo libero del file originale e' stato
+# rimosso di proposito: lasciarlo vuoto per errore significherebbe deployare
+# sulla radice.
+# ───────────────────────────────────────────────────────────────────────────
+
+name: Deploy tema su GoDaddy
+
+# Solo manuale. Nessun deploy automatico al push: il sito prende ordini veri e
+# non esiste staging su questo piano.
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sincronizza il tema
+        uses: godaddy-wordpress/gd-wordpress-deployer@v1
+        with:
+          remote_host: "p2f.94d.myftpupload.com"
+          ssh_user: "git_deployer_731c2cbb8b_173665"
+          ssh_private_key: ${{ secrets.PRIVATE_KEY }}
+
+          # Ambo i lati fissati al tema: e' cio' che confina il --delete.
+          source_path: "wp-content/themes/neuf-mois-theme"
+          deployment_dest: "wp-content/themes/neuf-mois-theme"
+
+          # Serve: e' cosi' che i 39 override cancellati spariscono anche dal
+          # server. Confinato al tema, e' sicuro.
+          cleanup_deleted_files: "yes"
+
+          # Verifica WordPress dopo il deploy e fa rollback se non risponde.
+          enable_health_check: "yes"
