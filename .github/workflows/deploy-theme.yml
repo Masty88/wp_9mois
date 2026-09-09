@@ -42,7 +42,11 @@ jobs:
       - name: Sincronizza il tema
         uses: godaddy-wordpress/gd-wordpress-deployer@v1
         with:
-          remote_host: "p2f.94d.myftpupload.com"
+          # NB: l'host generato da GoDaddy nel pannello era p2f.94d.myftpupload.com,
+          # che risolve (160.153.0.11) ma non risponde sulla porta 22: ssh-keyscan
+          # falliva e, con set -e, lo step moriva in 11 secondi prima ancora di
+          # validare le credenziali. Questo e' l'host che risponde davvero.
+          remote_host: "173665.eu11.ssh.myftpupload.com"
           ssh_user: "git_deployer_731c2cbb8b_173665"
           ssh_private_key: ${{ secrets.PRIVATE_KEY }}
 
